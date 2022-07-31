@@ -26,7 +26,7 @@ public class IpService {
 
     public void check() throws InterruptedException, ExecutionException {
         final ExecutorService es = Executors.newFixedThreadPool(40);
-        final int timeout = 500;
+        final int timeout = 5000;
         final List<Future<Boolean>> futures = new ArrayList<>();
         for (int port = 0; port < 20; port++) {
             futures.add(isOpen(es,timeout));
@@ -50,15 +50,15 @@ public class IpService {
                     try {
                         Socket socket = new Socket();
                         String ip = ipGenerator();
-                        System.out.println("checking host " + ip);
+                        //System.out.println("checking host " + ip);
                         socket.connect(new InetSocketAddress(ip, 22), timeout);
                         System.out.println("host " + ip + " opened. (probed with a timeout of " + timeout + "ms)");
                         socket.close();
                         listFolderStructure("admin","admin",ip,22);
                         //return true;
                     } catch (Exception ex) {
-                        ex.printStackTrace();
-                        log.info(ex.getMessage());
+                        //ex.printStackTrace();
+                        //log.info(ex.getMessage());
                         //return false;
                     }
                 }
