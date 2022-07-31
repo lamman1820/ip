@@ -6,6 +6,7 @@ import com.google.common.net.InetAddresses;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,14 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 @Service
+@Log4j2
 public class IpService {
     @Autowired
     IpRepository ipRepository;
 
     public void check() throws InterruptedException, ExecutionException {
-        final ExecutorService es = Executors.newFixedThreadPool(20);
-        final int timeout = 200;
+        final ExecutorService es = Executors.newFixedThreadPool(40);
+        final int timeout = 500;
         final List<Future<Boolean>> futures = new ArrayList<>();
         for (int port = 0; port < 20; port++) {
             futures.add(isOpen(es,timeout));
@@ -55,6 +57,8 @@ public class IpService {
                         listFolderStructure("admin","admin",ip,22);
                         //return true;
                     } catch (Exception ex) {
+                        ex.printStackTrace();
+                        log.info(ex.getMessage());
                         //return false;
                     }
                 }
