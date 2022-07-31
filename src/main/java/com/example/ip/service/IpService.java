@@ -48,9 +48,9 @@ public class IpService {
                     try {
                         Socket socket = new Socket();
                         String ip = ipGenerator();
-                        //System.out.println("host " + ip);
+                        System.out.println("checking host " + ip);
                         socket.connect(new InetSocketAddress(ip, 22), timeout);
-                        System.out.println("host " + ip + " (probed with a timeout of " + timeout + "ms)");
+                        System.out.println("host " + ip + " opened. (probed with a timeout of " + timeout + "ms)");
                         socket.close();
                         listFolderStructure("admin","admin",ip,22);
                         //return true;
