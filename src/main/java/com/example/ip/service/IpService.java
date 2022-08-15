@@ -26,7 +26,7 @@ public class IpService {
 
     public void check() throws InterruptedException, ExecutionException {
         final ExecutorService es = Executors.newFixedThreadPool(40);
-        final int timeout = 5000;
+        final int timeout = 500;
         final List<Future<Boolean>> futures = new ArrayList<>();
         for (int port = 0; port < 20; port++) {
             futures.add(isOpen(es,timeout));
